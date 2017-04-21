@@ -1,0 +1,25 @@
+.uploadform{
+    display: inline-block;
+    margin: 0 auto;
+    padding: 3em;
+    background-color: aquamarine;
+    border: 1px dashed black;
+}
+nav{
+    padding: 1em;
+    border: groove 3px black;
+    background-color: darkslategrey;
+}
+nav a{
+    text-decoration: none;
+    color: white;
+}
+body{
+    text-align: center;
+    margin: 0 auto;
+    background-color: gainsboro;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+}
