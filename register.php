@@ -51,13 +51,15 @@ $db = "22455_instaclone";
 
 if($_POST['submit']=='Register') {
     $email = $_POST['email'];
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $firstname = mysqli_real_escape_string($dbc,trim($_POST['firstname']));
+    $lastname = mysqli_real_escape_string($dbc,trim($_POST['lastname']));
+    $username = mysqli_real_escape_string($dbc,trim($_POST['username']));
+    $password = mysqli_real_escape_string($dbc,trim($_POST['password']));
     $password = hash('sha512',$password);
-    $password2 = $_POST['password2'];
+    $password2 = mysqli_real_escape_string($dbc,trim($_POST['password2']));
     $password2 = hash('sha512',$password2);
+
+
 
     $random_number = rand(1,9999);
     $hashcode = hash('sha512',$random_number);
@@ -71,10 +73,16 @@ if($_POST['submit']=='Register') {
 
         if ($password2 == $password && $password != null) {
             $dbc = mysqli_connect('localhost', $dbu, $dbp, $db) or die('Could not connect to database!');
-            $query = "INSERT INTO users(email, firstname, lastname, username, password, datum, hash) VALUES ('$email','$firstname','$lastname','$username','$password','$date', $hashcode)";
+            $query = "INSERT INTO users(email, firstname, lastname, username, password, datum, hash) VALUES ('$email','$firstname','$lastname','$username','$password','$date', '$hashcode')";
             $result = mysqli_query($dbc, $query) or die('Error writing query');
             echo 'You registered: ' . $username . ' under the name of: ' . $firstname . ' ' . $lastname . ' <br> With the email: ' . $email . ' <br> Welcome To Instaclone!';
             mysqli_close();
+            $to = $email;
+            $subject = "Confirm Registration Instahub";
+            $message = "Welcome to InstaHub, To be able to use your account you will have to verify your email first.
+             to verify your email click <a href='http://22455.hosts.ma-cloud.nl/verification.php?/email=".$email."&hashcode=".$hashcode."> here </a>";
+            $from = "Instahub@no-reply.com";
+            mail($to, $subject, $message, $from);
         } else if ($password != $password2) {
             echo 'Passwords Do Not Match!';
         } else {echo 'Error';}

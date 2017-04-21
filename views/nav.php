@@ -9,7 +9,7 @@ if (isset($_SESSION['username'])){
     &#8226;
 <a href="upload.php?' . SID . '">Upload</a> &#8226;
 <div style="float:right;">
-<form action="logout.php" method="post"> <type="submit" name="logout" value="logout"></form></div> 
+<form action="logout.php" method="post"> <input type="submit" name="logout" value="logout"></form></div> 
 ';
 
 }
